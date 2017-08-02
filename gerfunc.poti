@@ -1,0 +1,144 @@
+operacoes = ["00000", "00001", "00010", "00011", "00100", "00101", "00110", "00111", "01000"]
+
+nomes_operacoes = ["AND", "OR", "XOR", "NAND", "Soma Nat", "Soma Int","Subtr", "Desl Esq", "Desl Dir" ]
+
+var operacao := ""
+var destino, fonte1, fonte2, constante, espacos := 0
+
+dec2bin(numero, pad: Inteiro)
+  var atual := numero
+  var binario := ""
+
+  escreva numero
+
+  se numero > 0 então
+    enquanto atual <> 1 faça
+
+      binario := binario + "{atual mod 2}"
+      divisao = atual / 2
+
+      atual := divisao.inteiro
+    fim
+    binario := binario + "1"
+  senão
+    binario := "0"
+  fim
+
+  binario := binario.inverta
+  para i de 1 até pad - binario.tamanho faça
+    binario := "0" + binario
+  fim
+
+  retorne
+  binario
+fim
+
+dec2hex(numero, pad: Inteiro)
+  var atual := numero
+  var hexa := ""
+  var divisao := 0.0
+
+  se numero > 16 então
+    enquanto atual > 16 faça
+      resto = atual mod 16
+
+      se resto > 9 então
+        escolha resto
+          caso 10 => hexa := hexa + "A"
+          caso 11 => hexa := hexa + "B"
+          caso 12 => hexa := hexa + "C"
+          caso 13 => hexa := hexa + "D"
+          caso 14 => hexa := hexa + "E"
+          caso 15 => hexa := hexa + "F"
+        fim
+      senão
+        hexa := hexa + "{resto}"
+      fim
+
+      divisao := atual / 16
+      atual := divisao.inteiro
+    fim
+    hexa := hexa + divisao.inteiro
+  senão
+    se numero > 9 então
+      escolha numero
+        caso 10 => hexa := hexa + "A"
+        caso 11 => hexa := hexa + "B"
+        caso 12 => hexa := hexa + "C"
+        caso 13 => hexa := hexa + "D"
+        caso 14 => hexa := hexa + "E"
+        caso 15 => hexa := hexa + "F"
+      fim
+    senão
+      hexa := hexa + "{numero}"
+    fim
+  fim
+
+  hexa := hexa.inverta
+
+  para i de 1 até pad - hexa.tamanho faça
+    hexa := "0" + hexa
+  fim
+
+  retorne
+  hexa
+fim
+
+menu()
+  escreva "Insira uma opção: "
+
+  para i de 1 até operacoes.tamanho faça
+    escreva i + " " + nomes_operacoes[i]
+  fim
+  operacao := operacoes[leia_inteiro]
+
+  escreva "Digite o registrador de destino: (1-31)"
+  destino := leia_inteiro
+
+  escreva "Digite o registrador fonte 1"
+  fonte1 := leia_inteiro
+
+  escreva "Digite o registrador fonte 2"
+  fonte2 := leia_inteiro
+
+  escreva "Digite o valor constante"
+  constante := leia_inteiro
+
+  escreva "Manter espaços? (1 - Manter, 2 - Remover)"
+  espacos := leia_inteiro
+fim
+
+esp()
+  se espacos == 1 então
+    retorne
+    " "
+  senão
+    retorne
+    ""
+  fim
+fim
+
+var comando_binario := ""
+var comando_hexadecimal := ""
+
+menu()
+
+comando_binario := comando_binario + operacao + esp()
+comando_binario := comando_binario + dec2bin(destino, 5) + esp()
+comando_binario := comando_binario + dec2bin(fonte1, 5) + esp()
+comando_binario := comando_binario + dec2bin(fonte2, 5) + esp()
+comando_binario := comando_binario + dec2bin(constante, 13)
+
+opn = operacoes.posicao(operacao) - 1
+
+comando_hexadecimal := comando_hexadecimal + dec2hex(opn, 2) + esp()
+comando_hexadecimal := comando_hexadecimal + dec2hex(destino, 2) + esp()
+comando_hexadecimal := comando_hexadecimal + dec2hex(fonte1, 2) + esp()
+comando_hexadecimal := comando_hexadecimal + dec2hex(fonte2, 2) + esp()
+comando_hexadecimal := comando_hexadecimal + dec2hex(constante, 3)
+
+escreva "O binário é: "
+escreva comando_binario
+
+escreva "\r\nO hexadecimal é: op:{opn} "
+escreva comando_hexadecimal
