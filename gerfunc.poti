@@ -2,6 +2,8 @@ operacoes = ["00000", "00001", "00010", "00011", "00100", "00101", "00110", "001
 
 nomes_operacoes = ["AND", "OR", "XOR", "NAND", "Soma Nat", "Soma Int","Subtr", "Desl Esq", "Desl Dir" ]
 
+
+
 var operacao := ""
 var destino, fonte1, fonte2, constante, espacos := 0
 
